@@ -1,0 +1,127 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Alien Stage — Interactive Target & Round Terminal</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <main class="arena-container">
+    <header class="stage-header">
+      <span class="live-badge">● OFFICIAL ROUND RECORDINGS</span>
+      <h1>ALIEN STAGE</h1>
+      <p class="subtitle">Hover over a vocalist to inspect their target & round performance</p>
+    </header>
+
+    <section class="display-wrapper">
+      <div id="image" role="region" aria-live="polite">
+        Hover over a contestant below to initialize transmission.
+      </div>
+      
+      <div class="score-hud">
+        <div class="hud-header">
+          <span id="score-label" class="score-label">Performance Power Meter</span>
+          <span id="score-num" class="score-num">0%</span>
+        </div>
+        <div class="score-bar">
+          <div id="score-fill" class="score-fill" style="width: 0%;"></div>
+        </div>
+        
+        <div id="round-toggle" class="round-toggle" style="display: none;">
+          <button onclick="setTillRound(6)">Round 6 (vs. Ivan)</button>
+          <button onclick="setTillRound(7)">Round 7 (vs. Luka)</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="gallery" aria-label="Contestant Selector">
+      <img id="char-mizi"
+           class="preview" 
+           src="https://64.media.tumblr.com/9b829e8c9afbe7f97af0e5e85e0bb18f/55fad39de770e269-3a/s1280x1920/7871d31172e4769471dca18efdc77df69946a7fd.gif" 
+           alt="Mizi: 'My god... My universe...'" 
+           data-quote="Mizi: 'My god... My universe...'"
+           data-target="char-sua"
+           data-target-name="Sua"
+           data-score="87"
+           data-score-text="Round 1: 87 pts (Defeated Sua: 86)"
+           tabindex="0" 
+           onmouseover="upDate(this)" 
+           onmouseout="unDo()">
+
+      <img id="char-sua"
+           class="preview" 
+           src="https://64.media.tumblr.com/d3772bb66c1e6babb38aaf9105c378d7/55fad39de770e269-b3/s1280x1920/3587f9af8472e40192977ff3d32b6974cf777d85.gif" 
+           alt="Sua: 'I'll make you the winner, Mizi.'" 
+           data-quote="Sua: 'I'll make you the winner, Mizi.'"
+           data-target="char-mizi"
+           data-target-name="Mizi"
+           data-score="86"
+           data-score-text="Round 1: 86 pts (Defeated by Mizi: 87)"
+           tabindex="0" 
+           onmouseover="upDate(this)" 
+           onmouseout="unDo()">
+
+      <img id="char-till"
+           class="preview" 
+           src="https://media.tenor.com/w5u3kg6DsY8AAAAM/till-alnst-alien-stage.gif" 
+           alt="Till: 'I'll keep singing until my voice gives out.'" 
+           data-quote="Till: 'I'll keep singing until my voice gives out.'"
+           data-target="char-mizi"
+           data-target-name="Mizi"
+           data-score="89"
+           data-score-text="Round 6 Victory: 89 pts (vs. Ivan: 70)"
+           tabindex="0" 
+           onmouseover="upDate(this)" 
+           onmouseout="unDo()">
+
+      <img id="char-ivan"
+           class="preview" 
+           src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExNWdzemlqaHBxODM0bnozbG44NWxxZzN3ZngxYmdiMTg1dnhvOWJmYiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/oRJ3EchCHfW9ZRWeLu/giphy.gif" 
+           alt="Ivan: 'Thank you for being the victim of my shallow emotions.'" 
+           data-quote="Ivan: 'Thank you for being the victim of my shallow emotions.'"
+           data-target="char-till"
+           data-target-name="Till"
+           data-score="70"
+           data-score-text="Round 6 Defeat: 70 pts (vs. Till: 89)"
+           tabindex="0" 
+           onmouseover="upDate(this)" 
+           onmouseout="unDo()">
+
+      <img id="char-luka"
+           class="preview" 
+           src="https://64.media.tumblr.com/19ee6c4daf37082e5aeb1a9a6844f26f/6779035dd3e45ba7-bb/s1280x1920/99c1bd0d26f2c28793558b1e61557935e37690bc.gif" 
+           alt="Luka: 'Your pain is so beautiful.'" 
+           data-quote="Luka: 'Your pain is so beautiful.'"
+           data-target="char-hyuna"
+           data-target-name="Hyuna"
+           data-score="52.8"
+           data-score-text="Round 7 Final Victory: 52.8% (vs. Till: 47.2%)"
+           tabindex="0" 
+           onmouseover="upDate(this)" 
+           onmouseout="unDo()">
+
+      <img id="char-hyuna"
+           class="preview" 
+           src="https://media.tenor.com/0huUk86_1wQAAAAM/hyuna-hyuna-alien-stage.gif" 
+           alt="Hyuna: 'Luka, live with love.'" 
+           data-quote="Hyuna: 'Luka, live with love.'"
+           data-target="char-luka"
+           data-target-name="Luka"
+           data-score="95"
+           data-score-text="Rebel Disruption Anthem: 95 pts"
+           tabindex="0" 
+           onmouseover="upDate(this)" 
+           onmouseout="unDo()">
+    </section>
+
+    <footer class="user-vote-panel">
+      <label for="fav-contestant">Favorite Contestant:</label>
+      <input type="text" id="fav-contestant" placeholder="Type a character name..." oninput="checkFavorite(this.value)">
+      <p id="vote-response" class="vote-response">Hover over a character to inspect relationships.</p>
+    </footer>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
