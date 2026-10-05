@@ -1,7 +1,6 @@
 const defaultText = "Hover over a contestant below to view their target and round score.";
 let lockedPic = null;
 
-// Coursera Assignmentonload function: dynamically sets tabIndex for keyboard navigation
 function addTabFocus() {
   console.log("onload triggered: Initializing tabfocus for gallery images...");
   const previews = document.querySelectorAll(".preview");
@@ -12,7 +11,6 @@ function addTabFocus() {
 }
 
 function upDate(previewPic) {
-  // If a character is currently locked by click and user hovers over another, ignore hover
   if (lockedPic && lockedPic !== previewPic) return;
 
   console.log("Updating display for: ", previewPic.alt);
@@ -38,7 +36,6 @@ function upDate(previewPic) {
     roundToggle.style.display = "none";
   }
 
-  // Clear previous target highlights before setting new target highlight
   const allPreviews = document.querySelectorAll('.preview');
   allPreviews.forEach(img => img.classList.remove('target-active'));
 
@@ -51,7 +48,6 @@ function upDate(previewPic) {
 }
 
 function unDo() {
-  // Do not reset if character selection is locked via click
   if (lockedPic) return;
 
   const imageDiv = document.getElementById('image');
@@ -67,15 +63,12 @@ function unDo() {
   allPreviews.forEach(img => img.classList.remove('target-active'));
 }
 
-// Click Handler: Toggle selection locking so round buttons can be interacted with smoothly
 function toggleLock(previewPic) {
   if (lockedPic === previewPic) {
-    // Unlock if clicking the same image again
     lockedPic.classList.remove('selected-active');
     lockedPic = null;
     unDo();
   } else {
-    // Lock new image
     if (lockedPic) {
       lockedPic.classList.remove('selected-active');
     }
@@ -99,7 +92,6 @@ function setTillRound(roundNumber) {
     tillImg.setAttribute('data-target-name', 'Luka');
   }
 
-  // Ensure lock state is refreshed when clicking round buttons
   lockedPic = tillImg;
   tillImg.classList.add('selected-active');
   upDate(tillImg);
