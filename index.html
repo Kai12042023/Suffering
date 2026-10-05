@@ -6,18 +6,19 @@
   <title>Alien Stage — Interactive Target & Round Terminal</title>
   <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body onload="addTabFocus()">
 
   <main class="arena-container">
     <header class="stage-header">
       <span class="live-badge">● OFFICIAL ROUND RECORDINGS</span>
       <h1>ALIEN STAGE</h1>
-      <p class="subtitle">Hover over a vocalist to inspect their target & round performance</p>
+      <p class="subtitle">Hover or click a vocalist to inspect their target & round performance</p>
     </header>
 
-    <section class="display-wrapper">
+    <!-- Changed section to div to satisfy W3C heading structure validation -->
+    <div class="display-wrapper">
       <div id="image" role="region" aria-live="polite">
-        Hover over a contestant below to initialize transmission.
+        Hover or click a contestant below to initialize transmission.
       </div>
       
       <div class="score-hud">
@@ -30,12 +31,13 @@
         </div>
         
         <div id="round-toggle" class="round-toggle" style="display: none;">
-          <button onclick="setTillRound(6)">Round 6 (vs. Ivan)</button>
-          <button onclick="setTillRound(7)">Round 7 (vs. Luka)</button>
+          <button type="button" onclick="setTillRound(6)">Round 6 (vs. Ivan)</button>
+          <button type="button" onclick="setTillRound(7)">Round 7 (vs. Luka)</button>
         </div>
       </div>
-    </section>
+    </div>
 
+    <!-- Gallery Grid with matched mouseover/mouseout and focus/blur handlers -->
     <section class="gallery" aria-label="Contestant Selector">
       <img id="char-mizi"
            class="preview" 
@@ -46,9 +48,11 @@
            data-target-name="Sua"
            data-score="87"
            data-score-text="Round 1: 87 pts (Defeated Sua: 86)"
-           tabindex="0" 
            onmouseover="upDate(this)" 
-           onmouseout="unDo()">
+           onmouseout="unDo()"
+           onfocus="upDate(this)"
+           onblur="unDo()"
+           onclick="toggleLock(this)">
 
       <img id="char-sua"
            class="preview" 
@@ -59,9 +63,11 @@
            data-target-name="Mizi"
            data-score="86"
            data-score-text="Round 1: 86 pts (Defeated by Mizi: 87)"
-           tabindex="0" 
            onmouseover="upDate(this)" 
-           onmouseout="unDo()">
+           onmouseout="unDo()"
+           onfocus="upDate(this)"
+           onblur="unDo()"
+           onclick="toggleLock(this)">
 
       <img id="char-till"
            class="preview" 
@@ -72,9 +78,11 @@
            data-target-name="Mizi"
            data-score="89"
            data-score-text="Round 6 Victory: 89 pts (vs. Ivan: 70)"
-           tabindex="0" 
            onmouseover="upDate(this)" 
-           onmouseout="unDo()">
+           onmouseout="unDo()"
+           onfocus="upDate(this)"
+           onblur="unDo()"
+           onclick="toggleLock(this)">
 
       <img id="char-ivan"
            class="preview" 
@@ -85,9 +93,11 @@
            data-target-name="Till"
            data-score="70"
            data-score-text="Round 6 Defeat: 70 pts (vs. Till: 89)"
-           tabindex="0" 
            onmouseover="upDate(this)" 
-           onmouseout="unDo()">
+           onmouseout="unDo()"
+           onfocus="upDate(this)"
+           onblur="unDo()"
+           onclick="toggleLock(this)">
 
       <img id="char-luka"
            class="preview" 
@@ -98,9 +108,11 @@
            data-target-name="Hyuna"
            data-score="52.8"
            data-score-text="Round 7 Final Victory: 52.8% (vs. Till: 47.2%)"
-           tabindex="0" 
            onmouseover="upDate(this)" 
-           onmouseout="unDo()">
+           onmouseout="unDo()"
+           onfocus="upDate(this)"
+           onblur="unDo()"
+           onclick="toggleLock(this)">
 
       <img id="char-hyuna"
            class="preview" 
@@ -111,15 +123,17 @@
            data-target-name="Luka"
            data-score="95"
            data-score-text="Rebel Disruption Anthem: 95 pts"
-           tabindex="0" 
            onmouseover="upDate(this)" 
-           onmouseout="unDo()">
+           onmouseout="unDo()"
+           onfocus="upDate(this)"
+           onblur="unDo()"
+           onclick="toggleLock(this)">
     </section>
 
     <footer class="user-vote-panel">
       <label for="fav-contestant">Favorite Contestant:</label>
       <input type="text" id="fav-contestant" placeholder="Type a character name..." oninput="checkFavorite(this.value)">
-      <p id="vote-response" class="vote-response">Hover over a character to inspect relationships.</p>
+      <p id="vote-response" class="vote-response">Hover over or click a character to inspect relationships.</p>
     </footer>
   </main>
 
