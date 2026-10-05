@@ -224,3 +224,24 @@ body {
   color: var(--target-gold);
   margin-top: 8px;
 }
+
+.vote-response.acorn-secret {
+  color: var(--target-gold);
+  font-size: 1.05rem;
+  text-shadow: 0 0 10px var(--target-gold), 0 0 20px var(--neon-pink);
+  animation: acornGlow 1s infinite alternate;
+  padding: 8px;
+  border: 1px dashed var(--target-gold);
+  border-radius: 8px;
+  background: rgba(255, 215, 0, 0.1);
+  margin-top: 12px;
+}
+
+@keyframes acornGlow {
+  from {
+    box-shadow: 0 0 5px var(--target-gold);
+  }
+  to {
+    box-shadow: 0 0 20px var(--neon-cyan);
+  }
+}
