@@ -99,12 +99,33 @@ function setTillRound(roundNumber) {
 
 function checkFavorite(name) {
   const responseElement = document.getElementById('vote-response');
+  const imageDiv = document.getElementById('image');
+  const scoreFill = document.getElementById('score-fill');
+  const scoreNum = document.getElementById('score-num');
+  const scoreLabel = document.getElementById('score-label');
   const cleanName = name.trim().toLowerCase();
 
   if (cleanName === "") {
     responseElement.textContent = "Hover over or click a character to inspect relationships.";
+    responseElement.classList.remove('acorn-secret');
+    unDo();
     return;
   }
+
+  if (cleanName === "acorn") {
+    responseElement.innerHTML = "🌰 <strong>SECRET UNLOCKED: ACORN FOUND!</strong><br><em>'The lost mascot of the Anakt Garden. Score Overloaded!'</em>";
+    responseElement.classList.add('acorn-secret');
+
+    imageDiv.style.backgroundImage = "url('https://64.media.tumblr.com/13f01bb4dd2d4a6f2bb406248da5049a/55fad39de770e269-80/s1280x1920/190895cae5f35b2a0fb1ee2b45e7e17cbdd129a0.gif')";
+    imageDiv.innerHTML = "🌰 ACORN: 'Squeak... Transmission Hijacked!' <br><span style='font-size:0.85rem; color:#00f3ff;'>[Secret Guardian Detected]</span>";
+
+    scoreFill.style.width = "100%";
+    scoreNum.textContent = "100% (OVERLOAD)";
+    scoreLabel.textContent = "🌰 SECRET REWARD LEVEL: MAXED OUT";
+    return;
+  }
+
+  responseElement.classList.remove('acorn-secret');
 
   const responses = {
     "mizi": "Mizi selected. Aimed at Sua (Round 1).",
