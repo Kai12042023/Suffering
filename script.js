@@ -1,7 +1,6 @@
 const defaultText = "Hover over a contestant below to view their target and round score.";
 let lockedPic = null;
 
-// Coursera Assignment onload function: dynamically sets tabIndex for keyboard navigation
 function addTabFocus() {
   console.log("onload triggered: Initializing tabfocus for gallery images...");
   const previews = document.querySelectorAll(".preview");
@@ -12,7 +11,6 @@ function addTabFocus() {
 }
 
 function upDate(previewPic) {
-  // If a character is currently locked by click and user hovers over another, ignore hover
   if (lockedPic && lockedPic !== previewPic) return;
 
   console.log("Updating display for: ", previewPic.alt);
@@ -38,7 +36,6 @@ function upDate(previewPic) {
     roundToggle.style.display = "none";
   }
 
-  // Clear previous target highlights before setting new target highlight
   const allPreviews = document.querySelectorAll('.preview');
   allPreviews.forEach(img => img.classList.remove('target-active'));
 
@@ -51,7 +48,6 @@ function upDate(previewPic) {
 }
 
 function unDo() {
-  // Do not reset if character selection is locked via click
   if (lockedPic) return;
 
   const imageDiv = document.getElementById('image');
@@ -67,15 +63,12 @@ function unDo() {
   allPreviews.forEach(img => img.classList.remove('target-active'));
 }
 
-// Click Handler: Toggle selection locking so round buttons can be interacted with smoothly
 function toggleLock(previewPic) {
   if (lockedPic === previewPic) {
-    // Unlock if clicking the same image again
     lockedPic.classList.remove('selected-active');
     lockedPic = null;
     unDo();
   } else {
-    // Lock new image
     if (lockedPic) {
       lockedPic.classList.remove('selected-active');
     }
@@ -99,13 +92,11 @@ function setTillRound(roundNumber) {
     tillImg.setAttribute('data-target-name', 'Luka');
   }
 
-  // Ensure lock state is refreshed when clicking round buttons
   lockedPic = tillImg;
   tillImg.classList.add('selected-active');
   upDate(tillImg);
 }
 
-// Interactive Input Query with Acorn Easter Egg
 function checkFavorite(name) {
   const responseElement = document.getElementById('vote-response');
   const imageDiv = document.getElementById('image');
@@ -121,23 +112,19 @@ function checkFavorite(name) {
     return;
   }
 
-  // SECRET EASTER EGG: ACORN
   if (cleanName === "acorn") {
     responseElement.innerHTML = "🌰 <strong>SECRET UNLOCKED: ACORN FOUND!</strong><br><em>'The lost mascot of the Anakt Garden. Score Overloaded!'</em>";
     responseElement.classList.add('acorn-secret');
 
-    // Display Acorn Custom Image
     imageDiv.style.backgroundImage = "url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT0l6qIUWYOrtXvGCOwhlaIhOqEgXV4CHb2FTE5Lws78jbJ71hnZSI6Y04&s=10')";
     imageDiv.innerHTML = "🌰 ACORN: 'Transmission Hijacked!' <br><span style='font-size:0.85rem; color:#00f3ff;'>[Secret Guardian Detected]</span>";
 
-    // Max Overdrive Meter
     scoreFill.style.width = "100%";
     scoreNum.textContent = "100% (OVERLOAD)";
     scoreLabel.textContent = "🌰 SECRET REWARD LEVEL: MAXED OUT";
     return;
   }
 
-  // Reset Secret mode if typing another character name
   responseElement.classList.remove('acorn-secret');
 
   const responses = {
