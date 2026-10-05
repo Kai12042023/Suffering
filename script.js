@@ -116,7 +116,7 @@ function checkFavorite(name) {
     responseElement.innerHTML = "🌰 <strong>SECRET UNLOCKED: ACORN FOUND!</strong><br><em>'The lost mascot of the Anakt Garden. Score Overloaded!'</em>";
     responseElement.classList.add('acorn-secret');
 
-    imageDiv.style.backgroundImage = "url('https://media.tenor.com/8D2OBYH27j8AAAAe/acorn-alien-stage.png')";
+    imageDiv.style.backgroundImage = "url('https://media1.tenor.com/m/NVxOHBQkTdgAAAAC/acorn-alien-stage-acorn-alnst.gif')";
     imageDiv.innerHTML = "🌰 ACORN: 'Transmission Hijacked!' <br><span style='font-size:0.85rem; color:#00f3ff;'>[Secret Guardian Detected]</span>";
 
     scoreFill.style.width = "100%";
