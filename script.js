@@ -1,7 +1,21 @@
 const defaultText = "Hover over a contestant below to view their target and round score.";
+let lockedPic = null;
+
+// Coursera Assignmentonload function: dynamically sets tabIndex for keyboard navigation
+function addTabFocus() {
+  console.log("onload triggered: Initializing tabfocus for gallery images...");
+  const previews = document.querySelectorAll(".preview");
+  
+  for (let i = 0; i < previews.length; i++) {
+    previews[i].setAttribute("tabindex", "0");
+  }
+}
 
 function upDate(previewPic) {
-  console.log("Hovering over: ", previewPic.alt);
+  // If a character is currently locked by click and user hovers over another, ignore hover
+  if (lockedPic && lockedPic !== previewPic) return;
+
+  console.log("Updating display for: ", previewPic.alt);
 
   const imageDiv = document.getElementById('image');
   const quote = previewPic.getAttribute('data-quote');
@@ -24,6 +38,10 @@ function upDate(previewPic) {
     roundToggle.style.display = "none";
   }
 
+  // Clear previous target highlights before setting new target highlight
+  const allPreviews = document.querySelectorAll('.preview');
+  allPreviews.forEach(img => img.classList.remove('target-active'));
+
   if (targetId) {
     const targetElement = document.getElementById(targetId);
     if (targetElement) {
@@ -33,8 +51,10 @@ function upDate(previewPic) {
 }
 
 function unDo() {
-  const imageDiv = document.getElementById('image');
+  // Do not reset if character selection is locked via click
+  if (lockedPic) return;
 
+  const imageDiv = document.getElementById('image');
   imageDiv.style.backgroundImage = "url('')";
   imageDiv.innerHTML = defaultText;
 
@@ -45,6 +65,24 @@ function unDo() {
 
   const allPreviews = document.querySelectorAll('.preview');
   allPreviews.forEach(img => img.classList.remove('target-active'));
+}
+
+// Click Handler: Toggle selection locking so round buttons can be interacted with smoothly
+function toggleLock(previewPic) {
+  if (lockedPic === previewPic) {
+    // Unlock if clicking the same image again
+    lockedPic.classList.remove('selected-active');
+    lockedPic = null;
+    unDo();
+  } else {
+    // Lock new image
+    if (lockedPic) {
+      lockedPic.classList.remove('selected-active');
+    }
+    lockedPic = previewPic;
+    previewPic.classList.add('selected-active');
+    upDate(previewPic);
+  }
 }
 
 function setTillRound(roundNumber) {
@@ -60,24 +98,19 @@ function setTillRound(roundNumber) {
     tillImg.setAttribute('data-target', 'char-luka');
     tillImg.setAttribute('data-target-name', 'Luka');
   }
+
+  // Ensure lock state is refreshed when clicking round buttons
+  lockedPic = tillImg;
+  tillImg.classList.add('selected-active');
   upDate(tillImg);
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-  const previews = document.querySelectorAll(".preview");
-  previews.forEach((pic) => {
-    pic.addEventListener("focus", () => upDate(pic));
-    pic.addEventListener("blur", unDo);
-  });
-});
-
-// Interactive Input Query
 function checkFavorite(name) {
   const responseElement = document.getElementById('vote-response');
   const cleanName = name.trim().toLowerCase();
 
   if (cleanName === "") {
-    responseElement.textContent = "Hover over a character to inspect relationships.";
+    responseElement.textContent = "Hover over or click a character to inspect relationships.";
     return;
   }
 
